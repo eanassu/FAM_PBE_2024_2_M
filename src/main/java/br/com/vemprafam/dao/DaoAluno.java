@@ -92,12 +92,27 @@ public class DaoAluno {
 	}
 
 	public Aluno buscarPeloRa(int ra) {
+		String sql = "SELECT * FROM ALUNOS WHERE RA=?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, ra);
+			ResultSet rs = pstmt.executeQuery();
+			if ( rs.next() ) {
+				String nome = rs.getString(2);
+				Date dataNascimento = rs.getDate(3);
+				String curso = rs.getString(4);
+				Double renda = rs.getDouble(5);
+				String email = rs.getString(6);
+				return new Aluno(ra,nome,dataNascimento,curso,renda,email);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
 	public static void main(String[] args) {
-		Aluno a = new Aluno(1,"teste10", new Date(),"ADS",3000.0,"teste@teste");
 		DaoAluno dao = new DaoAluno();
-		System.out.println(dao.getLista());
+		System.out.println(dao.buscarPeloRa(10));
 	}
 }
