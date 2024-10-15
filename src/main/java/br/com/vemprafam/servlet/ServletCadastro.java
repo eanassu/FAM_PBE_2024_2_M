@@ -1,6 +1,7 @@
 package br.com.vemprafam.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -48,6 +49,20 @@ public class ServletCadastro extends HttpServlet {
 		Aluno aluno = new Aluno(ra,nome,dataNascimento,curso,renda,email);
 		DaoAluno dao = new DaoAluno();
 		dao.inserir(aluno);
+		PrintWriter out = response.getWriter();
+		out.println("<!DOCTYPE html>\r\n"
+				+ "<html>\r\n"
+				+ "<head>\r\n"
+				+ "<meta charset=\"ISO-8859-1\">\r\n"
+				+ "<title>Resultado</title>\r\n"
+				+ "</head>\r\n"
+				+ "<body>\r\n"
+				+ "<h1>Resultado</h1>\r\n"
+				+ "\r\n"
+				+ "<p>Cadastrado</p>\r\n"
+				+ "<a href='/Projeto'>voltar</a>\r\n"
+				+ "</body>\r\n"
+				+ "</html>");
 	}
 
 	/**
